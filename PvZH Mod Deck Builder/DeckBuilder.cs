@@ -433,6 +433,7 @@ namespace PvZH_Mod_Deck_Builder
         private void reloadCardDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CardsStorage.GetAllCardsFromJson();
+            CardSearch_TextChanged(sender, e);
             Deck.ForceUniqueCardsUpdate();
             DeckUpdate(false);
         }
@@ -442,6 +443,7 @@ namespace PvZH_Mod_Deck_Builder
             using (CardDataModifier CDM = new CardDataModifier())
             {
                 CDM.ShowDialog();
+                CardSearch_TextChanged(sender, e);
                 Deck.ForceUniqueCardsUpdate();
                 DeckUpdate(false);
             }

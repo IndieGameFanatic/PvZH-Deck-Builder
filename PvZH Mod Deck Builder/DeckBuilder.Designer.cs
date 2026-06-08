@@ -120,7 +120,7 @@
             // 
             // openCardDataToolStripMenuItem
             // 
-            openCardDataToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { modifyCardDataToolStripMenuItem, openCardDataLocationToolStripMenuItem, reloadCardDataToolStripMenuItem });
+            openCardDataToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { modifyCardDataToolStripMenuItem, reloadCardDataToolStripMenuItem, openCardDataLocationToolStripMenuItem });
             openCardDataToolStripMenuItem.Name = "openCardDataToolStripMenuItem";
             openCardDataToolStripMenuItem.Size = new Size(90, 24);
             openCardDataToolStripMenuItem.Text = "Card Data";
@@ -451,6 +451,7 @@
             MainMenuStrip = menuStrip;
             MaximizeBox = false;
             Name = "DeckBuilder";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PvZH Deck Builder for Mods";
             Load += DeckBuilder_Load;
             menuStrip.ResumeLayout(false);

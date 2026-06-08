@@ -45,7 +45,7 @@
             // 
             // ECI
             // 
-            ECI.Location = new Point(0, 124);
+            ECI.Location = new Point(1, 140);
             ECI.Name = "ECI";
             ECI.Size = new Size(734, 34);
             ECI.TabIndex = 0;
@@ -53,7 +53,7 @@
             // SearchCardToModLabel
             // 
             SearchCardToModLabel.AutoSize = true;
-            SearchCardToModLabel.Location = new Point(267, 32);
+            SearchCardToModLabel.Location = new Point(257, 44);
             SearchCardToModLabel.Name = "SearchCardToModLabel";
             SearchCardToModLabel.Size = new Size(164, 20);
             SearchCardToModLabel.TabIndex = 2;
@@ -61,7 +61,7 @@
             // 
             // SearchIDNumeric
             // 
-            SearchIDNumeric.Location = new Point(437, 30);
+            SearchIDNumeric.Location = new Point(427, 42);
             SearchIDNumeric.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
             SearchIDNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             SearchIDNumeric.Name = "SearchIDNumeric";
@@ -71,7 +71,7 @@
             // 
             // SearchModButton
             // 
-            SearchModButton.Location = new Point(300, 66);
+            SearchModButton.Location = new Point(301, 82);
             SearchModButton.Name = "SearchModButton";
             SearchModButton.Size = new Size(131, 38);
             SearchModButton.TabIndex = 4;
@@ -122,14 +122,14 @@
             // currentToolStripMenuItem
             // 
             currentToolStripMenuItem.Name = "currentToolStripMenuItem";
-            currentToolStripMenuItem.Size = new Size(224, 26);
+            currentToolStripMenuItem.Size = new Size(175, 26);
             currentToolStripMenuItem.Text = "Current Card";
             currentToolStripMenuItem.Click += currentToolStripMenuItem_Click;
             // 
             // allToolStripMenuItem
             // 
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new Size(224, 26);
+            allToolStripMenuItem.Size = new Size(175, 26);
             allToolStripMenuItem.Text = "All Cards";
             allToolStripMenuItem.Click += ResetAllToDefaultToolStripMenuItem_Click;
             // 
@@ -137,7 +137,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(733, 186);
+            ClientSize = new Size(733, 209);
             Controls.Add(SearchModButton);
             Controls.Add(SearchIDNumeric);
             Controls.Add(SearchCardToModLabel);
@@ -148,6 +148,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "CardDataModifier";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Modify Card Data";
             FormClosing += CardDataModifier_FormClosing;
             Load += CardDataModifier_Load;
