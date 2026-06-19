@@ -45,11 +45,14 @@ namespace PvZH_Mod_Deck_Builder
                 return;
             }
             string jsondata = File.ReadAllText(datapath);
-            LoadCardDataFromJson(jsondata, out _);
-            string[] jsonnames = File.ReadAllLines(namepath);
-            CardsStorage.SetCustomCards(jsonnames);
-            DeckUpdate(false);
-            CardSearch_TextChanged(new(), new());
+            LoadCardDataFromJson(jsondata, out bool success);
+            if (success)
+            {
+                string[] jsonnames = File.ReadAllLines(namepath);
+                CardsStorage.SetCustomCards(jsonnames);
+                DeckUpdate(false);
+                CardSearch_TextChanged(new(), new());
+            }
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -384,22 +387,15 @@ namespace PvZH_Mod_Deck_Builder
             FactionTypeComboBox.Enabled = IsStrategyDeck;
         }
 
-        private void openCardDataLocationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("explorer.exe", CardsStorage.PathToFolder);
-        }
-
         private void loadCardDataFromFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CardDataLoader.ShowDialog();
+            DialogResult result = CardFolderLoader.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                CardFolderLoader_FolderOK();
+            }
         }
 
-        private void CardDataLoader_FileOk(object sender, CancelEventArgs e)
-        {
-            string CardDataJson = File.ReadAllText(CardDataLoader.FileName);
-            LoadCardDataFromJson(CardDataJson, out bool success);
-            if (success) CardNameLoader.ShowDialog();
-        }
         void LoadCardDataFromJson(string JsonData, out bool success)
         {
             success = false;
@@ -421,27 +417,41 @@ namespace PvZH_Mod_Deck_Builder
             }
         }
 
-        private void CardNameLoader_FileOk(object sender, CancelEventArgs e)
-        {
-            string[] lines = File.ReadAllLines(CardNameLoader.FileName);
-            CardsStorage.SetCustomCards(lines);
-            DeckUpdate(false);
-            CardSearch_TextChanged(sender, e);
-        }
-
         private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitializeCardData();
         }
 
-        private void loadDeckFromUnityAssetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UnityAssetLoader.ShowDialog();
-        }
         private void UnityAssetLoader_FileOk(object sender, CancelEventArgs e)
         {
             UAH.LoadDecksFromDataAssets(UnityAssetLoader.FileName, out bool success);
-            if (success) MessageBox.Show("Yippee!");
+        }
+
+        private void loadBundleToolStripMenuItem_Click(object sender, EventArgs e)
+        {   
+            UnityAssetLoader.ShowDialog();
+        }
+
+        private void CardFolderLoader_FolderOK()
+        {
+            string folderpath = CardFolderLoader.SelectedPath;
+            string datapath = Path.Combine(folderpath, "cards.txt");
+            string namepath = Path.Combine(folderpath, "localizedstrings.txt");
+            if (!File.Exists(datapath) || !File.Exists(namepath))
+            {
+                MessageBox.Show("'cards.txt' and/or 'localizedstrings.txt' are missing from the selected folder, " +
+                    "so no cards can be loaded!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string jsondata = File.ReadAllText(datapath);
+            LoadCardDataFromJson(jsondata, out bool success);
+            if (success)
+            {
+                string[] jsonnames = File.ReadAllLines(namepath);
+                CardsStorage.SetCustomCards(jsonnames);
+                DeckUpdate(false);
+                CardSearch_TextChanged(new(), new());
+            }
         }
     }
 }

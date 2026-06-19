@@ -1,6 +1,7 @@
 ﻿using AssetsTools;
 using AssetsTools.NET;
 using AssetsTools.NET.Extra;
+using System.Text.Json;
 
 namespace PvZH_Mod_Deck_Builder
 {
@@ -11,7 +12,7 @@ namespace PvZH_Mod_Deck_Builder
         AssetBundleFile Bundle;
         AssetsFileInstance AssetFileInstance;
         AssetsFile AssetFile;
-        List<AIAssetDeck> AIDecks = [];
+        List<BundleDeck> Decks = [];
         internal void LoadDecksFromDataAssets(string FilePath, out bool success)
         {
             success = false;
@@ -21,17 +22,26 @@ namespace PvZH_Mod_Deck_Builder
                 Bundle = BundleInstance.file;
                 AssetFileInstance = Manager.LoadAssetsFileFromBundle(BundleInstance, 0, false);
                 AssetFile = AssetFileInstance.file;
-                AIDecks.Clear();
+                Decks.Clear();
                 if (AssetFile.GetAssetsOfType(AssetClassID.TextAsset).Count > 0)
                 {
                     foreach (var texInfo in AssetFile.GetAssetsOfType(AssetClassID.TextAsset))
                     {
                         var texBase = Manager.GetBaseField(AssetFileInstance, texInfo);
-                        var script = texBase["m_Script"].AsString;
+                        string script = texBase["m_Script"].AsString;
                         if (script.Contains("MainDeckCardIds"))
                         {
-                            AIDecks.Add(new AIAssetDeck(texInfo, texBase));
+                            Decks.Add(new BundleDeck(texInfo, texBase));
                         }
+                    }
+                    success = true;
+                }
+                else
+                {
+                    foreach (var monoInfo in AssetFile.GetAssetsOfType(AssetClassID.MonoBehaviour))
+                    {
+                        var monoBase = Manager.GetBaseField(AssetFileInstance, monoInfo);
+                        Decks.Add(new BundleDeck(monoInfo, monoBase));
                     }
                     success = true;
                 }
@@ -41,18 +51,18 @@ namespace PvZH_Mod_Deck_Builder
                 MessageBox.Show("Something went wrong!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        internal class AIAssetDeck
+        internal class BundleDeck
         {
             public string Name { get; set; }
             public AssetFileInfo Info { get; set; }
             public AssetTypeValueField Base { get; set; }
-            public string Json { get; set; }
-            internal AIAssetDeck(AssetFileInfo assetinfo, AssetTypeValueField assetbase)
+            public BundleDeck Self { get; set; }
+            internal BundleDeck(AssetFileInfo assetinfo, AssetTypeValueField assetbase)
             {
                 Info = assetinfo;
                 Base = assetbase;
-                Json = assetbase["m_Script"].AsString;
                 Name = assetbase["m_Name"].AsString;
+                Self = this;
             }
         }
     }
