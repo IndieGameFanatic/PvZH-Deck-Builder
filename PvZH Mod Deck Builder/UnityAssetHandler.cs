@@ -59,9 +59,9 @@ namespace PvZH_Mod_Deck_Builder
                 Decks = Decks.OrderBy(x => x.Name).ToList();
                 if (success) OutputDecks = Decks;
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("Something went wrong!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         internal void SaveBundle(string path)
@@ -70,6 +70,12 @@ namespace PvZH_Mod_Deck_Builder
             Bundle.BlockAndDirInfo.DirectoryInfos[0].SetNewData(AssetFile);
             try
             {
+                if (path.Equals(BundleInstance.path))
+                {
+                    MessageBox.Show("You cannot save to the currently loaded bundle! Please save your changes as a new bundle.",
+                        "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 using (AssetsFileWriter writer = new AssetsFileWriter(path))
                 {
                     Bundle.Write(writer);
@@ -77,8 +83,7 @@ namespace PvZH_Mod_Deck_Builder
             }
             catch (Exception e)
             {
-                if (e is IOException) MessageBox.Show("You cannot save to the bundle you loaded! Save it as "
-                    + "a new bundle.", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

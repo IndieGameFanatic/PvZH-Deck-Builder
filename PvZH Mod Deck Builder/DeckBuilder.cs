@@ -91,9 +91,9 @@ namespace PvZH_Mod_Deck_Builder
                     MessageBox.Show("Invalid JSON File!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("Something went wrong!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         void LoadAIDeck(List<CardItem> Cards)
@@ -472,9 +472,10 @@ namespace PvZH_Mod_Deck_Builder
                     MessageBox.Show("Invalid Card Data!");
                 }
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("Something went wrong!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.GetType().ToString());
+                MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
