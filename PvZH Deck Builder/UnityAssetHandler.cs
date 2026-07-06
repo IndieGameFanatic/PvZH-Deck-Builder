@@ -66,8 +66,9 @@ namespace PvZH_Mod_Deck_Builder
                 UnloadBundle();
             }
         }
-        internal void SaveBundle(string path)
+        internal void SaveBundle(string path, out bool SelfSave)
         {
+            SelfSave = false;
             foreach (BundleDeck Deck in Decks) Deck.SaveDeck();
             Bundle.BlockAndDirInfo.DirectoryInfos[0].SetNewData(AssetFile);
             try
@@ -75,6 +76,7 @@ namespace PvZH_Mod_Deck_Builder
                 if (path.Equals(BundleInstance.path))
                 {
                     SaveBundleToSelf(path);
+                    SelfSave = true;
                 }
                 else
                 {
@@ -100,11 +102,6 @@ namespace PvZH_Mod_Deck_Builder
             }
             File.Delete(path);
             File.Move(tempPath, path);
-
-            BundleInstance = Manager.LoadBundleFile(path, true);
-            Bundle = BundleInstance.file;
-            AssetFileInstance = Manager.LoadAssetsFileFromBundle(BundleInstance, 0, false);
-            AssetFile = AssetFileInstance.file;
         }
         internal void UnloadBundle()
         {

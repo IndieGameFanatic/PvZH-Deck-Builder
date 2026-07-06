@@ -176,7 +176,8 @@ namespace PvZH_Mod_Deck_Builder
             string JsonDeck;
             if (AllBundleDecks.Count > 0)
             {
-                UAH.SaveBundle(DeckSaver.FileName);
+                UAH.SaveBundle(DeckSaver.FileName, out bool SelfSave);
+                if (SelfSave) ReloadBundleDecksAfterSelfSave();
                 this.Text = savedName;
                 return;
             }
@@ -508,7 +509,20 @@ namespace PvZH_Mod_Deck_Builder
                 }
             }
         }
-
+        private void ReloadBundleDecksAfterSelfSave()
+        {
+            UAH.LoadDecksFromDataAssets(UnityAssetLoader.FileName, out bool success, out List<BundleDeck> decks);
+            if (success)
+            {
+                int selected = DeckSearchList.SelectedIndex;
+                AllBundleDecks.Clear();
+                DisplayedBundleDecks.Clear();
+                foreach (BundleDeck deck in decks) AllBundleDecks.Add(deck);
+                DeckSearch_PageChanged();
+                DeckSearchList.SelectedItem = DeckSearchList.Items[selected];
+                DeckSearchList_SelectedIndexChanged(new(), new());
+            }
+        }
         private void loadBundleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UnityAssetLoader.ShowDialog();
