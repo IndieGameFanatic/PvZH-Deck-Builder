@@ -162,7 +162,7 @@ namespace PvZH_Mod_Deck_Builder
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (File.Exists(DeckSaver.FileName) && AllBundleDecks.Count <= 0) DeckSaver_FileOk(new(), new());
+            if (File.Exists(DeckSaver.FileName)) DeckSaver_FileOk(new(), new());
             else saveAsToolStripMenuItem_Click(new(), new());
         }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -368,6 +368,7 @@ namespace PvZH_Mod_Deck_Builder
                 Deck.Clear();
                 LoadStrategyDeck([], "", 0);
                 DeckSaver.FileName = "";
+                UAH.UnloadBundle();
             }
         }
         void CardSearch_PageChanged()

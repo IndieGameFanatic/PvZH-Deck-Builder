@@ -17,6 +17,7 @@ namespace PvZH_Mod_Deck_Builder
         {
             success = false;
             OutputDecks = [];
+            UnloadBundle();
             try
             {
                 BundleInstance = Manager.LoadBundleFile(FilePath, true);
@@ -62,6 +63,7 @@ namespace PvZH_Mod_Deck_Builder
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UnloadBundle();
             }
         }
         internal void SaveBundle(string path)
@@ -72,19 +74,41 @@ namespace PvZH_Mod_Deck_Builder
             {
                 if (path.Equals(BundleInstance.path))
                 {
-                    MessageBox.Show("You cannot save to the currently loaded bundle! Please save your changes as a new bundle.",
-                        "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    SaveBundleToSelf(path);
                 }
-                using (AssetsFileWriter writer = new AssetsFileWriter(path))
+                else
                 {
-                    Bundle.Write(writer);
+                    using (AssetsFileWriter writer = new AssetsFileWriter(path))
+                    {
+                        Bundle.Write(writer);
+                    }
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        internal void SaveBundleToSelf(string path)
+        {
+            string tempPath = path + ".temp";
+            using (AssetsFileWriter writer = new AssetsFileWriter(tempPath))
+            {
+                Bundle.Write(writer);
+                UnloadBundle();
+                writer.Close();
+            }
+            File.Delete(path);
+            File.Move(tempPath, path);
+
+            BundleInstance = Manager.LoadBundleFile(path, true);
+            Bundle = BundleInstance.file;
+            AssetFileInstance = Manager.LoadAssetsFileFromBundle(BundleInstance, 0, false);
+            AssetFile = AssetFileInstance.file;
+        }
+        internal void UnloadBundle()
+        {
+            Manager.UnloadAll();
         }
     }
     internal class BundleDeck
