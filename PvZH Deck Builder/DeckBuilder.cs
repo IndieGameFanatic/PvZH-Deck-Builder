@@ -76,12 +76,12 @@ namespace PvZH_Mod_Deck_Builder
                 DisplayedBundleDecks.Clear();
                 JsonAIDeck AIDeckInfo = JsonSerializer.Deserialize<JsonAIDeck>(JsonDeck);
                 JsonStrategyDeck StrategyDeckInfo = JsonSerializer.Deserialize<JsonStrategyDeck>(JsonDeck);
-                if (AIDeckInfo.MainDeckCardIds != null)
+                if (AIDeckInfo.MainDeckCardIds.Length > 0)
                 {
                     var Cards = CardsStorage.GetCardsByIDs(AIDeckInfo.MainDeckCardIds);
                     LoadAIDeck(Cards);
                 }
-                else if (StrategyDeckInfo.Cards != null)
+                else if (StrategyDeckInfo.Cards.CardEntries.Array.Length > 0)
                 {
                     var Cards = CardsStorage.GetCardsByIDs(StrategyDeckInfo.AllCardIDs());
                     LoadStrategyDeck(Cards, StrategyDeckInfo.m_Name, StrategyDeckInfo.Faction);

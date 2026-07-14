@@ -181,6 +181,7 @@
             CardSearchList.DisplayMember = "Name";
             CardSearchList.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CardSearchList.FormattingEnabled = true;
+            CardSearchList.HorizontalScrollbar = true;
             CardSearchList.Location = new Point(69, 152);
             CardSearchList.Margin = new Padding(25, 3, 3, 3);
             CardSearchList.Name = "CardSearchList";
@@ -224,6 +225,7 @@
             // 
             DeckList.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeckList.FormattingEnabled = true;
+            DeckList.HorizontalScrollbar = true;
             DeckList.IntegralHeight = false;
             DeckList.Location = new Point(357, 150);
             DeckList.Margin = new Padding(10, 3, 3, 3);
@@ -379,7 +381,7 @@
             // 
             DeckNameLabel.AutoSize = true;
             DeckNameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DeckNameLabel.Location = new Point(356, 49);
+            DeckNameLabel.Location = new Point(339, 49);
             DeckNameLabel.Name = "DeckNameLabel";
             DeckNameLabel.Size = new Size(55, 20);
             DeckNameLabel.TabIndex = 26;
@@ -387,9 +389,9 @@
             // 
             // DeckNameTextBox
             // 
-            DeckNameTextBox.Location = new Point(419, 46);
+            DeckNameTextBox.Location = new Point(400, 46);
             DeckNameTextBox.Name = "DeckNameTextBox";
-            DeckNameTextBox.Size = new Size(258, 27);
+            DeckNameTextBox.Size = new Size(277, 27);
             DeckNameTextBox.TabIndex = 27;
             // 
             // FactionTypeComboBox
@@ -435,6 +437,7 @@
             DeckSearchList.Enabled = false;
             DeckSearchList.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeckSearchList.FormattingEnabled = true;
+            DeckSearchList.HorizontalScrollbar = true;
             DeckSearchList.Location = new Point(694, 150);
             DeckSearchList.Margin = new Padding(25, 3, 3, 3);
             DeckSearchList.Name = "DeckSearchList";

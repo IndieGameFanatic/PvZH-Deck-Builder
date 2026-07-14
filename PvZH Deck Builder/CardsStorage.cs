@@ -26,7 +26,9 @@ namespace PvZH_Mod_Deck_Builder
             AllCardItems.Clear();
             foreach (string CDK in CardDataHandler.LoadedCardData.Keys)
             {
-                string prefabname = CardDataHandler.LoadedCardData[CDK].prefabName;
+                CardDataHandler.CardData CardData = CardDataHandler.LoadedCardData[CDK];
+
+                string prefabname = CardData.prefabName;
                 string CSVSearcher = prefabname + "_name";
                 string? nameline = lines.FirstOrDefault(x => x.StartsWith(CSVSearcher));
                 if (nameline != null)
@@ -47,6 +49,9 @@ namespace PvZH_Mod_Deck_Builder
         public class CardData
         {
             public string prefabName { get; set; } = "";
+            public bool usable { get; set; } = false;
+            public bool isPower { get; set; } = false;
+            public string set { get; set; } = "";
         }
     }
 }
