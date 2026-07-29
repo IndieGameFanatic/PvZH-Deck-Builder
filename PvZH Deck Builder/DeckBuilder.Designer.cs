@@ -73,6 +73,9 @@
             DeckSearchScrollRight = new Button();
             DeckSearchScrollLeft = new Button();
             DeckSearchLabel = new Label();
+            deckToolsToolStripMenuItem = new ToolStripMenuItem();
+            copyCurrentDeckToolStripMenuItem = new ToolStripMenuItem();
+            pasteDeckToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CopiesToAdd).BeginInit();
             SuspendLayout();
@@ -80,7 +83,7 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, openCardDataToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, openCardDataToolStripMenuItem, deckToolsToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1036, 28);
@@ -498,6 +501,29 @@
             DeckSearchLabel.TabIndex = 36;
             DeckSearchLabel.Text = "Search Deck to Edit";
             // 
+            // deckToolsToolStripMenuItem
+            // 
+            deckToolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { copyCurrentDeckToolStripMenuItem, pasteDeckToolStripMenuItem });
+            deckToolsToolStripMenuItem.Name = "deckToolsToolStripMenuItem";
+            deckToolsToolStripMenuItem.Size = new Size(95, 24);
+            deckToolsToolStripMenuItem.Text = "Deck Tools";
+            // 
+            // copyCurrentDeckToolStripMenuItem
+            // 
+            copyCurrentDeckToolStripMenuItem.Name = "copyCurrentDeckToolStripMenuItem";
+            copyCurrentDeckToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.C;
+            copyCurrentDeckToolStripMenuItem.Size = new Size(324, 26);
+            copyCurrentDeckToolStripMenuItem.Text = "Copy Current Deck";
+            copyCurrentDeckToolStripMenuItem.Click += copyCurrentDeckToolStripMenuItem_Click;
+            // 
+            // pasteDeckToolStripMenuItem
+            // 
+            pasteDeckToolStripMenuItem.Name = "pasteDeckToolStripMenuItem";
+            pasteDeckToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.V;
+            pasteDeckToolStripMenuItem.Size = new Size(324, 26);
+            pasteDeckToolStripMenuItem.Text = "Paste to Current Deck";
+            pasteDeckToolStripMenuItem.Click += pasteDeckToolStripMenuItem_Click;
+            // 
             // DeckBuilder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -598,5 +624,8 @@
         private Button DeckSearchScrollRight;
         private Button DeckSearchScrollLeft;
         private Label DeckSearchLabel;
+        private ToolStripMenuItem deckToolsToolStripMenuItem;
+        private ToolStripMenuItem copyCurrentDeckToolStripMenuItem;
+        private ToolStripMenuItem pasteDeckToolStripMenuItem;
     }
 }

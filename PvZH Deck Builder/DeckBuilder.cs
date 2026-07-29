@@ -621,5 +621,20 @@ namespace PvZH_Mod_Deck_Builder
             CurrentDeckSearchPage = 0;
             DeckSearch_PageChanged();
         }
+
+        List<CardItem> CopiedDeck = [];
+
+        private void copyCurrentDeckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopiedDeck.Clear();
+            foreach (CardItem item in Deck) CopiedDeck.Add(item);
+        }
+
+        private void pasteDeckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Deck.Clear();
+            foreach (CardItem item in CopiedDeck) Deck.Add(item);
+            DeckUpdate(false);
+        }
     }
 }
